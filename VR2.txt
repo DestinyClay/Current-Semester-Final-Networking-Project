@@ -1,0 +1,41 @@
+hostname VR2
+
+ip dhcp excluded-address 150.100.0.65 150.100.0.79
+ip dhcp excluded-address 150.100.0.97 150.100.0.110
+ip dhcp excluded-address 150.100.0.129 150.100.0.142
+
+ip dhcp pool VLAN10
+ network 150.100.0.96 255.255.255.224
+ default-router 150.100.0.111
+ dns-server 8.8.8.8
+
+ip dhcp pool VLAN20
+ network 150.100.0.128 255.255.255.224
+ default-router 150.100.0.143
+ dns-server 8.8.8.8
+
+interface GigabitEthernet0/0
+ no shutdown
+
+interface GigabitEthernet0/0.1
+ encapsulation dot1Q 1 native
+ ip address 150.100.0.80 255.255.255.224
+
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 150.100.0.111 255.255.255.224
+
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 150.100.0.143 255.255.255.224
+
+interface GigabitEthernet0/1
+ ip address 200.100.1.5 255.255.255.0
+
+router eigrp 1
+ network 150.100.0.64 0.0.0.31
+ network 150.100.0.96 0.0.0.31
+ network 150.100.0.128 0.0.0.31
+ network 200.100.1.0
+
+ip route 0.0.0.0 0.0.0.0 200.100.1.1 

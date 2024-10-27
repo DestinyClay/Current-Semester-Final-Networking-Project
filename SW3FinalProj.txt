@@ -1,0 +1,54 @@
+hostname SW3
+
+vtp domain cisco
+
+vtp mode client
+
+ip routing
+
+interface Port-channel2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+
+interface Port-channel3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+
+interface FastEthernet0/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 2 mode desirable
+
+interface FastEthernet0/4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 2 mode desirable
+
+interface FastEthernet0/5
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 3 mode desirable
+
+interface FastEthernet0/6
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 3 mode desirable
+
+interface FastEthernet0/24
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+
+interface Vlan1
+ ip address 150.100.0.68 255.255.255.224
+ no shutdown
+
+interface Vlan10
+ ip address 150.100.0.100 255.255.255.224
+
+interface Vlan20
+ ip address 150.100.0.132 255.255.255.224
+
+router eigrp 1
+ network 150.100.0.64 255.255.255.224
+ network 150.100.0.96 255.255.255.224
+ network 150.100.0.128 255.255.255.224
